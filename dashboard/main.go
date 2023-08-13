@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	server "github.com/rohansingh9001/Neura-Launch-Dashboard/controllers"
 	"github.com/rohansingh9001/Neura-Launch-Dashboard/helpers"
 )
 
@@ -16,17 +17,14 @@ func main() {
 	helpers.CheckError(err)
 
 	// Initializig the gin router/engine
-	router := gin.Default()
+	router := server.Server{}
+	router.Server()
 
 	// Making an API route 
-	router.GET("/", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
-	})
+	router.PingRoute()
 
 	// Starting the Server
 	fmt.Println("Server started at port 8080")
-	log.Fatal(router.Run(":8080"))
+	router.RunServer()
 
 }
