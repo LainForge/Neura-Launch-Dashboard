@@ -2,29 +2,37 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
-	server "github.com/rohansingh9001/Neura-Launch-Dashboard/controllers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/helpers"
+
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/controllers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/initializers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/middlewares"
 )
+
+func init() {
+	initializers.LoanEnvVariables()
+	initializers.ConnectToDb()
+	initializers.SyncDatabase()
+}
 
 func main() {
 
-	// Loading the env variables
-	err := godotenv.Load("../.env")
-	helpers.CheckError(err)
 
 	// Initializig the gin router/engine
-	router := server.Server{}
-	router.Server()
+	r := gin.Default()
 
-	// Making an API route 
-	router.PingRoute()
+	// Auth URLs
+	r.POST("/signup", controllers.Singup)
+	r.POST("/login", controllers.Login)
+	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
+
+	// Ping endpoint
+	r.GET("/ping", controllers.Ping)
+	r.GET("", controllers.Hello)
 
 	// Starting the Server
 	fmt.Println("Server started at port 8080")
-	router.RunServer()
+	r.Run()
 
 }
