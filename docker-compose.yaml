@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  dashboard:
+    build:
+      context: dashboard
+      dockerfile: dashboard/
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    networks:
+      - neura-launch-network
+    restart: on-failure
+
+  database:
+    image: postgres
+    container_name: postgres_database
+    env_file: dashboard/.env
+    # environment:
+    #   POSTGRES_USER: ${POSTGRES_USER}
+    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    #   POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5432:5432
+    networks:
+      - neura-launch-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    env_file: dashboard/.env
+    # environment:
+    #   PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+    #   PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - database
+    ports:
+      - 5050:80
+    networks:
+      - neura-launch-network
+    restart: unless-stopped
+
+networks:
+  neura-launch-network:
+    driver: bridge
