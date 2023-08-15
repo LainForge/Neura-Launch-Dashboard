@@ -12,6 +12,7 @@
   "dependencies": {
     "@mui/icons-material": "^5.14.3",
     "@tremor/react": "^3.6.1",
+    "@headlessui/tailwindcss": "^0.2.0",
     "outline": "link:@types/herocions/react/outline",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

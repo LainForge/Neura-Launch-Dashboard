@@ -4,15 +4,15 @@ FROM node:16-alpine as build
 
 WORKDIR /app
 
-RUN npm install yarn
+RUN npm install -g pnpm
 
 COPY package.json .
 
-RUN yarn install
+RUN pnpm install
 
 COPY . .
 
-RUN yarn build
+RUN pnpm run build
 
 # Serve with nginx
 
