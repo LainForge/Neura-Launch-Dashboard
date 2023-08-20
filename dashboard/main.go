@@ -36,6 +36,9 @@ func main() {
 	r.POST("/login", controllers.Login)
 	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
 
+	// Generate Token
+	r.POST("/token", middlewares.RequireAuth ,controllers.TokenController)
+
 	// Ping endpoint
 	r.GET("/ping", controllers.Ping)
 	r.GET("", controllers.Hello)
