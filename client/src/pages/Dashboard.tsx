@@ -61,6 +61,48 @@ const models = [
 
 
 export default function Dashboard(){
+    async function signUP() {
+        const url = "http://localhost:8080/signup"
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "Email": "tiwari.25@iitj.ac.in",
+                "Password": "12345678",
+            })
+        })
+
+        if(response.status === 200) {
+            console.log("User Created")
+        }else{
+            console.log(response)
+        }
+    }
+
+    async function login(){
+        const url = "http://localhost:8080/login"
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "Email": "tiwari.25@iitj.ac.in",
+                "Password": "12345678",
+            })
+        })
+
+        if(response.status === 200) {
+            const cookie = document.cookie
+            localStorage.setItem("token", cookie)
+            console.log("User Logged In", cookie)
+        }else{
+            console.log(response)
+        }
+
+    }
     return(
         <main className="w-screen min-h-screen px-5 bg-dark-tremor-background-muted">
             <SizedBox />
@@ -73,9 +115,9 @@ export default function Dashboard(){
                     <VerticalSizedBox />
                     <Button variant="secondary">Costs</Button>
                     <VerticalSizedBox />
-                    <Button variant="light">Usage</Button>
+                    <Button variant="light" onClick={login}>Login</Button>
                     <VerticalSizedBox />
-                    <Button variant="light">Users</Button>
+                    <Button variant="light" onClick={signUP}>Sign Up</Button>
                 </section>
             </section>
             <SizedBox />
@@ -108,7 +150,7 @@ function DisplayGrid() {
     )
 }
 
-function DisplayCard(props: any) {
+function DisplayCard(props:any) {
     return (
         <Card className="w-full"> 
             <section className="flex flex-row justify-between">
