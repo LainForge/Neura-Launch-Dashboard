@@ -15,5 +15,5 @@ func Ping(ctx *gin.Context) {
 
 func Hello(ctx *gin.Context) {
 	ctx.Header("Content-Type", "text/html; charset=utf-8")
-	ctx.String(http.StatusOK, "<h1>Hello World!</h1>")
+	ctx.String(http.StatusOK, "<h1>Hello World! Kunal is a fucking genius</h1>")
 }

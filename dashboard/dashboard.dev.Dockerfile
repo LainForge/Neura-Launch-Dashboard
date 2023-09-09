@@ -1,21 +1,30 @@
-# Build the application
+# Stage 1: Build the application
 FROM golang:1.20-alpine AS builder
 
+ENV PROJECT_DIR=/app \
+    GO111MODULE=on \
+    CGO_ENABLED=0
+
 WORKDIR /app
+RUN mkdir "/build"
+
 
 # Copy only the necessary Go mod files
 COPY go.mod .
 COPY go.sum .
 
 # Download dependencies
-
+RUN go get github.com/githubnemo/CompileDaemon
+RUN go install github.com/githubnemo/CompileDaemon
 RUN go mod download
 
 # Copy the rest of the source code
 COPY . .
+COPY .env .
 
-# Expose the application port
+# Build the application
+RUN go build -o NeuraLaunch
+
 EXPOSE 8080
 
-# Define the default command
-CMD ["go", "run", "main.go"]
+ENTRYPOINT CompileDaemon -build="go build -o /build/app" -command="/build/app"
