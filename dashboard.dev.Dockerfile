@@ -19,11 +19,11 @@ RUN go install github.com/githubnemo/CompileDaemon
 RUN go mod download
 
 # Copy the rest of the source code
-COPY ./dashboard .
+COPY ./dashboard ./dashboard
 COPY ./dashboard/.env .
 
 # Build the application
-RUN go build -o NeuraLaunch
+RUN go build -o NeuraLaunch ./dashboard
 
 EXPOSE 8080
 

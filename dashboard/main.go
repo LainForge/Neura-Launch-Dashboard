@@ -6,9 +6,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/controllers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/middlewares"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/controllers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/middlewares"
 )
 
 func init() {
@@ -18,7 +18,6 @@ func init() {
 }
 
 func main() {
-
 
 	// Initializig the gin router/engine
 	r := gin.Default()
@@ -37,7 +36,7 @@ func main() {
 	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
 
 	// Generate Token
-	r.POST("/token", middlewares.RequireAuth ,controllers.TokenController)
+	r.POST("/token", middlewares.RequireAuth, controllers.TokenController)
 
 	// Ping endpoint
 	r.GET("/ping", controllers.Ping)
