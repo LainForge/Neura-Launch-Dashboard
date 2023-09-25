@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func VerifyCheckSumControllers(context *gin.Context) {
+func VerifyCheckSumController(context *gin.Context) {
 	var body struct {
 		checkSum string
 		filePath string

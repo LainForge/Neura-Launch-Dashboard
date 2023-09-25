@@ -9,7 +9,8 @@ func main() {
 	r := gin.Default()
 
 	// Routes
-	r.GET("/verifyCheckSum", controllers.VerifyCheckSumControllers)
+	r.GET("/", controllers.PingController)
+	r.GET("/verifyCheckSum", controllers.VerifyCheckSumController)
 	r.GET("/downloadFiles", nil)
 	r.GET("/buildImage", nil)
 
