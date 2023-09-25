@@ -16,7 +16,7 @@ services:
     restart: on-failure
   dashboard:
     build:
-      context: dashboard
+      context: .
       dockerfile: dashboard.dev.Dockerfile
     volumes:
       - ./dashboard:/app

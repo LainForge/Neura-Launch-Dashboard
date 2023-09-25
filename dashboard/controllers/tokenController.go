@@ -2,14 +2,14 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/helpers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/helpers"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func TokenController(ctx *gin.Context) {
-	
+
 	var body struct {
-		Email	string
+		Email string
 	}
 
 	err := ctx.Bind(&body)
@@ -19,7 +19,7 @@ func TokenController(ctx *gin.Context) {
 	helpers.CheckError(err)
 
 	ctx.JSON(
-		200, 
+		200,
 		gin.H{"token": string(hash)},
 	)
 
