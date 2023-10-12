@@ -39,6 +39,9 @@ func main() {
 	// Generate Token
 	r.POST("/token", middlewares.RequireAuth ,controllers.TokenController)
 
+	// Upload Code to S3
+	r.POST("/upload", controllers.UploadFile)
+
 	// Ping endpoint
 	r.GET("/ping", controllers.Ping)
 	r.GET("", controllers.Hello)
