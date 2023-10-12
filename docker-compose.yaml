@@ -28,10 +28,6 @@ services:
     image: postgres
     container_name: postgres_database
     env_file: dashboard/.env
-    # environment:
-    #   POSTGRES_USER: ${POSTGRES_USER}
-    #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    #   POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - 5432:5432
     networks:
@@ -41,9 +37,6 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin_container
     env_file: dashboard/.env
-    # environment:
-    #   PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-    #   PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
       - database
     ports:

@@ -2,13 +2,11 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/controllers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/middlewares"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/controllers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/middlewares"
 )
 
 func init() {
@@ -19,8 +17,7 @@ func init() {
 
 func main() {
 
-
-	// Initializig the gin router/engine
+	// Initializing the gin router/engine
 	r := gin.Default()
 
 	// Allowing Cross Origin Requests
@@ -37,7 +34,7 @@ func main() {
 	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
 
 	// Generate Token
-	r.POST("/token", middlewares.RequireAuth ,controllers.TokenController)
+	r.POST("/token", middlewares.RequireAuth, controllers.TokenController)
 
 	// Upload Code to S3
 	r.POST("/upload", controllers.UploadFile)
