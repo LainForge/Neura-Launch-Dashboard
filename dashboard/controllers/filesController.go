@@ -6,20 +6,16 @@ import (
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-
-	"github.com/gin-gonic/gin"
-
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-
 	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/gin-gonic/gin"
 )
 
 const (
 	AWS_S3_REGION = "ap-southeast-1"
 	AWS_S3_BUCKET = "neura-launch-zips"
 )
-
 
 func connectAWS() *session.Session {
 
@@ -34,7 +30,6 @@ func connectAWS() *session.Session {
 	}
 	return sess
 }
-
 
 func UploadFile(c *gin.Context) {
 
