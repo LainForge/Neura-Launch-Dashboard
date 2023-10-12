@@ -12,7 +12,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Singup(ctx *gin.Context) {
+func Signup(ctx *gin.Context) {
 	// Get the email/pass of req body
 	var body struct {
 		Email    string

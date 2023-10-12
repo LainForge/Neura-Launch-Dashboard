@@ -32,7 +32,7 @@ func main() {
 	}))
 
 	// Auth URLs
-	r.POST("/signup", controllers.Singup)
+	r.POST("/signup", controllers.Signup)
 	r.POST("/login", controllers.Login)
 	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
 
