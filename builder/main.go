@@ -15,5 +15,5 @@ func main() {
 	r.GET("/buildImage", nil)
 
 	// Starting the server
-	r.Run(":8080")
+	r.Run(":8000")
 }
