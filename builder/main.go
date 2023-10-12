@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/builder/controllers"
+	"github.com/LainForge/Neura-Launch-Dashboard/builder/controllers"
 )
 
 func main() {

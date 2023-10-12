@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/controllers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/middlewares"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/controllers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/middlewares"
 )
 
 func init() {
