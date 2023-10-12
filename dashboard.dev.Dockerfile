@@ -22,9 +22,6 @@ RUN go mod download
 COPY ./dashboard .
 COPY ./dashboard/.env .
 
-# Build the application
-RUN go build -o NeuraLaunch .
-
 EXPOSE 8080
 
 ENTRYPOINT CompileDaemon -build="go build -o /build/app" -command="/build/app"
