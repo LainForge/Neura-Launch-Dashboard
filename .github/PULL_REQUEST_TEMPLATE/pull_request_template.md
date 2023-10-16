@@ -37,4 +37,5 @@ Fixes # (issue)
 ## Mandatory Tasks
 
 - [ ] Make sure you have self-reviewed the code. A decent size PR without self-review might be rejected.
+- [ ] Is CI successful
 
