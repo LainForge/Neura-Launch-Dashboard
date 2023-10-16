@@ -1,5 +1,6 @@
 name: Dashboard-CI
 on:
+  workflow_dispatch:
   push:
     paths: 
       - 'dashboard/**'
