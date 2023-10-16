@@ -2,24 +2,41 @@ version: '3'
 
 services:
   client:
-      build:
-        context: client
-        dockerfile: client.Dockerfile
-      ports:
-        - 3000:80
-      depends_on:
-        - dashboard
-      networks:
-        - neura-launch-network
-      restart: on-failure
+    build:
+      context: client
+      dockerfile: ../.docker/prod/client.Dockerfile
+    volumes:
+      - ./client:/app
+    ports:
+      - 3000:80
+    depends_on:
+      - dashboard
+    networks:
+      - neura-launch-network
+    restart: on-failure
+
   dashboard:
     build:
-      context: dashboard
-      dockerfile: dashboard.Dockerfile
+      context: ./dashboard
+      dockerfile: ../.docker/prod/dashboard.Dockerfile
+    volumes:
+      - ./dashboard:/app
     ports:
       - 8080:8080
     depends_on:
       - database
+    networks:
+      - neura-launch-network
+    restart: on-failure
+
+  builder:
+    build:
+      context: ./builder
+      dockerfile: ../.docker/prod/builder.Dockerfile
+    volumes:
+      - ./builder:/app
+    ports:
+      - 5000:5000
     networks:
       - neura-launch-network
     restart: on-failure

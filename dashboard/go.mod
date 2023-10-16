@@ -1,6 +1,6 @@
 module github.com/LainForge/Neura-Launch-Dashboard/dashboard
 
-go 1.21.1
+go 1.21
 
 require (
 	github.com/aws/aws-sdk-go v1.45.24

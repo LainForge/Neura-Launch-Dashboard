@@ -19,8 +19,8 @@ RUN go install github.com/githubnemo/CompileDaemon
 RUN go mod download
 
 # Copy the rest of the source code
-COPY ./dashboard .
-COPY ./dashboard/.env .
+COPY . .
+COPY ./.env .
 
 EXPOSE 8080
 
