@@ -8,4 +8,5 @@ type Project struct {
     UserID uint   `gorm:"index"`
     Name   string `gorm:"unique;not null"`
     Token  string `gorm:"unique;not null"`
+    Checksum string 
 }
