@@ -42,7 +42,7 @@ func main() {
 	r.POST("/upload", controllers.UploadFile)
 
 	// Project URLs
-	r.POST("/new_project", middlewares.RequireAuth, controllers.CreateNewProject)
+	r.POST("/project/new", middlewares.RequireAuth, controllers.CreateNewProject)
 	r.GET("/projects", middlewares.RequireAuth, controllers.GetProjects)
 	r.GET("/project/:token", middlewares.RequireAuth, controllers.GetProject)
 	r.DELETE("/project/:token", middlewares.RequireAuth, controllers.DeleteProject)

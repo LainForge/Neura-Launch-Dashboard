@@ -45,7 +45,7 @@ func UploadFile(c *gin.Context) {
 		return
 	}
 
-	// Get a file from the form input name "file" and "checksum
+	// Get a file from the form input name "file" and "checksum"
 	file, header, err := c.Request.FormFile("file")
 	checksum := c.Request.FormValue("checksum")
 

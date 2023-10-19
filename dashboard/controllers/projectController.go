@@ -11,7 +11,12 @@ import (
 
 func CreateNewProject(ctx *gin.Context) {
 
-	user, _ := ctx.Get("user")
+	user, exists := ctx.Get("user")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
 
 	// Get the project name
 	var body struct {
@@ -50,13 +55,17 @@ func CreateNewProject(ctx *gin.Context) {
 
 	// Respond
 	ctx.JSON(http.StatusOK, gin.H{"message": "Project Created Successfully", "token": token})
-
 }
 
 // Get all projects for a user
 func GetProjects(ctx *gin.Context) {
 
-	user, _ := ctx.Get("user")
+	user, exists := ctx.Get("user")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
 
 	var projects []models.Project
 
@@ -68,13 +77,17 @@ func GetProjects(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"projects": projects})
-
 }
 
 // Get a project by token
 func GetProject(ctx *gin.Context) {
 
-	user, _ := ctx.Get("user")
+	user, exists := ctx.Get("user")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
 
 	var project models.Project
 
@@ -86,13 +99,17 @@ func GetProject(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"project": project})
-
 }
 
 // Delete a project by token
 func DeleteProject(ctx *gin.Context) {
 
-	user, _ := ctx.Get("user")
+	user, exists := ctx.Get("user")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch user"})
+		return
+	}
 
 	var project models.Project
 
@@ -104,5 +121,4 @@ func DeleteProject(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"message": "Project deleted successfully"})
-
 }
