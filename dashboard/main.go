@@ -19,7 +19,6 @@ func init() {
 
 func main() {
 
-
 	// Initializig the gin router/engine
 	r := gin.Default()
 
@@ -37,10 +36,16 @@ func main() {
 	r.GET("/validate", middlewares.RequireAuth, controllers.Validate)
 
 	// Generate Token
-	r.POST("/token", middlewares.RequireAuth ,controllers.TokenController)
+	r.POST("/token", middlewares.RequireAuth, controllers.TokenController)
 
 	// Upload Code to S3
 	r.POST("/upload", controllers.UploadFile)
+
+	// Project URLs
+	r.POST("/project/new", middlewares.RequireAuth, controllers.CreateNewProject)
+	r.GET("/projects", middlewares.RequireAuth, controllers.GetProjects)
+	r.GET("/project/:token", middlewares.RequireAuth, controllers.GetProject)
+	r.DELETE("/project/:token", middlewares.RequireAuth, controllers.DeleteProject)
 
 	// Ping endpoint
 	r.GET("/ping", controllers.Ping)
