@@ -1,17 +1,16 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func Ping(ctx *gin.Context) {
 	ctx.JSON(
-		http.StatusOK, 
+		http.StatusOK,
 		gin.H{
-		"message": "Hello World!",
-	})
+			"message": "Hello World!",
+		})
 }
 
 func Hello(ctx *gin.Context) {

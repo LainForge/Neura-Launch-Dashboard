@@ -1,12 +1,11 @@
 package initializers
 
 import (
-	"os"
 	"fmt"
-	"strconv"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"os"
+	"strconv"
 )
 
 var DB *gorm.DB

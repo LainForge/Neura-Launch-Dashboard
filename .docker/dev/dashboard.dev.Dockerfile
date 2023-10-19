@@ -20,10 +20,7 @@ RUN go mod download
 
 # Copy the rest of the source code
 COPY . .
-COPY .env .
-
-# Build the application
-RUN go build -o NeuraLaunch
+COPY ./.env .
 
 EXPOSE 8080
 

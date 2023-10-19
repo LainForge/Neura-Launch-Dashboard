@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/models"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
 )
 
 func RequireAuth(c *gin.Context) {
