@@ -1,0 +1,43 @@
+name: Client-CI
+on:
+  workflow_dispatch:
+  push:
+    paths: 
+      - 'client/**'
+env:
+  NODE_VERSION: '16.20.0'
+jobs:
+  ci:
+    name: Compile
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install Dependencies
+        run: |
+          cd client
+          pnpm install --no-frozen-lockfile
+
+      - name: Compile and Build
+        run: |
+          cd client
+          npm run build
+
+      - name: Docker Build
+        run: |
+          cd client
+          docker build -f client.Dockerfile .
+
+
+
+

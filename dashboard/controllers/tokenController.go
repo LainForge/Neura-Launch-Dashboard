@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/helpers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/helpers"
 	"golang.org/x/crypto/bcrypt"
 )
 

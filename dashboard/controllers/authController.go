@@ -3,15 +3,15 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/dashboard/models"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"os"
 	"time"
 )
 
-func Singup(ctx *gin.Context) {
+func Signup(ctx *gin.Context) {
 	// Get the email/pass of req body
 	var body struct {
 		Email    string
