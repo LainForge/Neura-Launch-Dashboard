@@ -3,10 +3,10 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/helpers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
 	"github.com/gin-gonic/gin"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/helpers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/initializers"
-	"github.com/rohansingh9001/Neura-Launch-Dashboard/models"
 )
 
 func CreateNewProject(ctx *gin.Context) {
