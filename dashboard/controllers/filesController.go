@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/LainForge/Neura-Launch-Dashboard/initializers"
-	"github.com/LainForge/Neura-Launch-Dashboard/models"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"

@@ -3,9 +3,9 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/LainForge/Neura-Launch-Dashboard/helpers"
-	"github.com/LainForge/Neura-Launch-Dashboard/initializers"
-	"github.com/LainForge/Neura-Launch-Dashboard/models"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/helpers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
 	"github.com/gin-gonic/gin"
 )
 
