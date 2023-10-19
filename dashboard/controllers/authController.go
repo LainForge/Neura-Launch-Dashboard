@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func Singup(ctx *gin.Context) {
+func Signup(ctx *gin.Context) {
 	// Get the email/pass of req body
 	var body struct {
 		Email    string
