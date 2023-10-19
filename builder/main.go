@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/LainForge/Neura-Launch-Dashboard/builder/controllers"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -15,5 +15,5 @@ func main() {
 	r.GET("/buildImage", nil)
 
 	// Starting the server
-	r.Run(":8000")
+	r.Run(":5000")
 }

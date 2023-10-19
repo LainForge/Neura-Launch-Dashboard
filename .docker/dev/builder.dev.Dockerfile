@@ -1,6 +1,7 @@
 FROM golang:1.20-alpine AS builder
 
 WORKDIR /app
+RUN mkdir "/build"
 
 # Copy the necessary files
 COPY go.mod .
@@ -12,9 +13,7 @@ RUN go install github.com/githubnemo/CompileDaemon
 RUN go mod download
 
 # Copy the rest of the source code
-COPY ./builder ./builder
-
-WORKDIR /app/builder
+COPY . .
 
 # Expose PORT
 EXPOSE 5000

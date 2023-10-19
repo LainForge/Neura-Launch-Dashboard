@@ -4,7 +4,7 @@ services:
   client:
     build:
       context: client
-      dockerfile: client.Dockerfile
+      dockerfile: ../.docker/dev/client.dev.Dockerfile
     volumes:
       - ./client:/app
     ports:
@@ -14,16 +14,29 @@ services:
     networks:
       - neura-launch-network
     restart: on-failure
+
   dashboard:
     build:
-      context: .
-      dockerfile: dashboard.dev.Dockerfile
+      context: ./dashboard
+      dockerfile: ../.docker/dev/dashboard.dev.Dockerfile
     volumes:
       - ./dashboard:/app
     ports:
       - 8080:8080
     depends_on:
       - database
+    networks:
+      - neura-launch-network
+    restart: on-failure
+
+  builder:
+    build:
+      context: ./builder
+      dockerfile: ../.docker/dev/builder.dev.Dockerfile
+    volumes:
+      - ./builder:/app
+    ports:
+      - 5000:5000
     networks:
       - neura-launch-network
     restart: on-failure
