@@ -1,0 +1,22 @@
+name: Builder-CI
+on:
+  workflow_dispatch:
+  push:
+    paths: 
+      - 'builder/**'
+jobs:
+  ci:
+    name: Compile
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.20.0'
+
+      - name: Build Go Code
+        run: |
+          cd builder
+          go build
+          go install

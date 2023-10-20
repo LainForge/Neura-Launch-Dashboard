@@ -16,7 +16,7 @@ RUN go mod download
 COPY . .
 
 # Expose PORT
-EXPOSE 5000
+EXPOSE 6969
 
 # Run the application 
 ENTRYPOINT CompileDaemon -build="go build -o /build/app" -command="/build/app"
