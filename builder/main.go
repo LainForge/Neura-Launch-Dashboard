@@ -12,7 +12,7 @@ func main() {
 	r.GET("/", controllers.PingController)
 	r.GET("/verifyCheckSum", controllers.VerifyCheckSumController)
 	r.GET("/downloadFiles", nil)
-	r.GET("/buildImage", nil)
+	r.GET("/buildImage", controllers.MakeDockerImage)
 
 	// Starting the server
 	r.Run(":6969")
