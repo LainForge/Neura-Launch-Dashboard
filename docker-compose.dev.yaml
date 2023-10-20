@@ -13,6 +13,8 @@ services:
       - dashboard
     networks:
       - neura-launch-network
+    command: |
+      sh -c "pnpm install && pnpm run dev --host --port 3000"
     restart: on-failure
 
   dashboard:
