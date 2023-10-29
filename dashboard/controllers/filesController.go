@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -21,9 +20,6 @@ const (
 )
 
 func connectAWS() *session.Session {
-
-	fmt.Println("Connecting to AWS", os.Getenv("AWS_ACCESS_KEY_ID"), os.Getenv("AWS_SECRET_ACCESS_KEY"))
-
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(AWS_S3_REGION), Credentials: credentials.NewStaticCredentials(
 		os.Getenv("AWS_ACCESS_KEY_ID"),
 		os.Getenv("AWS_SECRET_ACCESS_KEY"),
@@ -37,7 +33,6 @@ func connectAWS() *session.Session {
 func UploadFile(c *gin.Context) {
 
 	var sess = connectAWS()
-
 	// Parse the multipart form, with max file size 100MB
 	err := c.Request.ParseMultipartForm(100 << 20)
 	if err != nil {
