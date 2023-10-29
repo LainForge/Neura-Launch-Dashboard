@@ -19,7 +19,7 @@ const models = [
     {
         title: "Speech Detection Model",
         subtitle: "/api.neuralaunch/kunxl.gg/predict",
-        description: "This is model makde by noob people Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, aliquam.",
+        description: "This is model makde by noob people Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, aliquam. Lol",
         status: "live"
     }, 
 
