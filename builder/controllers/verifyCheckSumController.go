@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"crypto/sha256"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func VerifyCheckSumController(context *gin.Context) {
@@ -16,12 +18,12 @@ func VerifyCheckSumController(context *gin.Context) {
 
 	err := context.Bind(&body)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	f, err := os.Open(body.filePath)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	defer f.Close()
@@ -29,7 +31,7 @@ func VerifyCheckSumController(context *gin.Context) {
 	hasher := sha256.New()
 	evaluatedCheckSum, err := io.Copy(hasher, f)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	var result bool = string(evaluatedCheckSum) == body.checkSum
