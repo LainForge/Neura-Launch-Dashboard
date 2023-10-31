@@ -36,8 +36,5 @@ jobs:
       - name: Docker Build
         run: |
           cd client
-          docker build -f client.Dockerfile .
-
-
-
-
+          docker build -f ../.docker/prod/client.Dockerfile .
+          docker build -f ../.docker/dev/client.dev.Dockerfile .

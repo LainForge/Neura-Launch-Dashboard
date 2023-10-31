@@ -1,24 +1,29 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/controllers"
 	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
 	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/middlewares"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func init() {
 	initializers.LoanEnvVariables()
 	initializers.ConnectToDb()
 	initializers.SyncDatabase()
+	initializers.Logging()
 }
 
 func main() {
 
 	// Initializing the gin router/engine
-	r := gin.Default()
+	r := gin.New()
+
+	// Setup middleware
+	r.Use(gin.Recovery())
+	r.Use(middlewares.LoggingMiddleware())
 
 	// Allowing Cross Origin Requests
 	r.Use(cors.New(cors.Config{
@@ -50,7 +55,7 @@ func main() {
 	r.GET("", controllers.Hello)
 
 	// Starting the Server
-	fmt.Println("Server started at port 8080")
+	log.Info("Server started at port 8080")
 	r.Run()
 
 }
