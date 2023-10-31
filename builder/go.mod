@@ -4,7 +4,9 @@ go 1.21
 
 require (
 	github.com/aws/aws-sdk-go v1.45.28
+	github.com/docker/docker v24.0.6+incompatible
 	github.com/gin-gonic/gin v1.9.1
+	github.com/sirupsen/logrus v1.9.0
 )
 
 require (
@@ -14,7 +16,6 @@ require (
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/distribution/reference v0.5.0 // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
-	github.com/docker/docker v24.0.6+incompatible // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
