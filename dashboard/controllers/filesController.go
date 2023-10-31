@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -13,6 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -22,14 +22,14 @@ const (
 
 func connectAWS() *session.Session {
 
-	fmt.Println("Connecting to AWS", os.Getenv("AWS_ACCESS_KEY_ID"), os.Getenv("AWS_SECRET_ACCESS_KEY"))
+	log.Info("Connecting to AWS with the credentials provided.")
 
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(AWS_S3_REGION), Credentials: credentials.NewStaticCredentials(
 		os.Getenv("AWS_ACCESS_KEY_ID"),
 		os.Getenv("AWS_SECRET_ACCESS_KEY"),
 		"")})
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 	return sess
 }
