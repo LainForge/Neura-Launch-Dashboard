@@ -3,7 +3,7 @@ package models
 import "gorm.io/gorm"
 
 type Project struct {
-	gorm.Model
+    gorm.Model
     ID     uint   `gorm:"primaryKey"`
     UserID uint   `gorm:"index"`
     Name   string `gorm:"unique;not null"`
