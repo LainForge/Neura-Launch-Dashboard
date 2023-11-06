@@ -1,90 +1,90 @@
 package controllers
 
 import (
-	"net/http"
-	"os"
-	"strings"
+    "net/http"
+    "os"
+    "strings"
 
-	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
-	"github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+    "github.com/LainForge/Neura-Launch-Dashboard/dashboard/initializers"
+    "github.com/LainForge/Neura-Launch-Dashboard/dashboard/models"
+    "github.com/aws/aws-sdk-go/aws"
+    "github.com/aws/aws-sdk-go/aws/credentials"
+    "github.com/aws/aws-sdk-go/aws/session"
+    "github.com/aws/aws-sdk-go/service/s3/s3manager"
+    "github.com/gin-gonic/gin"
+    log "github.com/sirupsen/logrus"
 )
 
 const (
-	AWS_S3_REGION = "ap-southeast-1"
-	AWS_S3_BUCKET = "neura-launch-zips"
+    AWS_S3_REGION = "ap-southeast-1"
+    AWS_S3_BUCKET = "neura-launch-zips"
 )
 
 func connectAWS() *session.Session {
 
-	log.Info("Connecting to AWS with the credentials provided.")
+    log.Info("Connecting to AWS with the credentials provided.")
 
-	sess, err := session.NewSession(&aws.Config{Region: aws.String(AWS_S3_REGION), Credentials: credentials.NewStaticCredentials(
-		os.Getenv("AWS_ACCESS_KEY_ID"),
-		os.Getenv("AWS_SECRET_ACCESS_KEY"),
-		"")})
-	if err != nil {
-		log.Panic(err)
-	}
-	return sess
+    sess, err := session.NewSession(&aws.Config{Region: aws.String(AWS_S3_REGION), Credentials: credentials.NewStaticCredentials(
+        os.Getenv("AWS_ACCESS_KEY_ID"),
+        os.Getenv("AWS_SECRET_ACCESS_KEY"),
+        "")})
+    if err != nil {
+        log.Panic(err)
+    }
+    return sess
 }
 
 func UploadFile(c *gin.Context) {
 
-	var sess = connectAWS()
+    var sess = connectAWS()
 
-	// Parse the multipart form, with max file size 100MB
-	err := c.Request.ParseMultipartForm(100 << 20)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse multipart form"})
-		return
-	}
+    // Parse the multipart form, with max file size 100MB
+    err := c.Request.ParseMultipartForm(100 << 20)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse multipart form"})
+        return
+    }
 
-	// Get a file from the form input name "file" and "checksum"
-	file, header, err := c.Request.FormFile("file")
-	checksum := c.Request.FormValue("checksum")
+    // Get a file from the form input name "file" and "checksum"
+    file, header, err := c.Request.FormFile("file")
+    checksum := c.Request.FormValue("checksum")
 
-	// extract the project token from the file name which is token.zip
-	token := strings.Split(header.Filename, ".")[0]
+    // extract the project token from the file name which is token.zip
+    token := strings.Split(header.Filename, ".")[0]
 
-	// Check if the project exists
-	var project models.Project
-	result := initializers.DB.Where("token = ?", token).First(&project)
+    // Check if the project exists
+    var project models.Project
+    result := initializers.DB.Where("token = ?", token).First(&project)
 
-	if result.Error != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Project does not exist"})
-		return
-	}
+    if result.Error != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Project does not exist"})
+        return
+    }
 
-	// if the project exists then save the checksum
-	project.Checksum = checksum
-	initializers.DB.Save(&project)
+    // if the project exists then save the checksum
+    project.Checksum = checksum
+    initializers.DB.Save(&project)
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to retrieve the file from the form"})
-		return
-	}
-	defer file.Close()
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to retrieve the file from the form"})
+        return
+    }
+    defer file.Close()
 
-	filename := header.Filename
+    filename := header.Filename
 
-	// Upload the file to S3.
-	uploader := s3manager.NewUploader(sess)
-	_, err = uploader.Upload(&s3manager.UploadInput{
-		Bucket: aws.String(AWS_S3_BUCKET), // Bucket
-		Key:    aws.String(filename),      // Name of the file to be saved
-		Body:   file,                      // File
-	})
+    // Upload the file to S3.
+    uploader := s3manager.NewUploader(sess)
+    _, err = uploader.Upload(&s3manager.UploadInput{
+        Bucket: aws.String(AWS_S3_BUCKET), // Bucket
+        Key:    aws.String(filename),      // Name of the file to be saved
+        Body:   file,                      // File
+    })
 
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload the file"})
-		return
-	}
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to upload the file"})
+        return
+    }
 
-	c.JSON(http.StatusOK, gin.H{"message": "File uploaded successfully", "bucket": AWS_S3_BUCKET})
+    c.JSON(http.StatusOK, gin.H{"message": "File uploaded successfully", "bucket": AWS_S3_BUCKET})
 }
