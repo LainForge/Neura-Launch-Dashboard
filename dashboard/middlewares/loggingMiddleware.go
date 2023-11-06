@@ -1,46 +1,46 @@
 package middlewares
 
 import (
-	"time"
+    "time"
 
-	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+    "github.com/gin-gonic/gin"
+    log "github.com/sirupsen/logrus"
 )
 
 func LoggingMiddleware() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		// Starting time
-		startTime := time.Now()
+    return func(ctx *gin.Context) {
+        // Starting time
+        startTime := time.Now()
 
-		// Processing request
-		ctx.Next()
+        // Processing request
+        ctx.Next()
 
-		// End Time
-		endTime := time.Now()
+        // End Time
+        endTime := time.Now()
 
-		// execution time
-		latencyTime := endTime.Sub(startTime)
+        // execution time
+        latencyTime := endTime.Sub(startTime)
 
-		// Request method
-		reqMethod := ctx.Request.Method
+        // Request method
+        reqMethod := ctx.Request.Method
 
-		// Request route
-		reqUri := ctx.Request.RequestURI
+        // Request route
+        reqUri := ctx.Request.RequestURI
 
-		// status code
-		statusCode := ctx.Writer.Status()
+        // status code
+        statusCode := ctx.Writer.Status()
 
-		// Request IP
-		clientIP := ctx.ClientIP()
+        // Request IP
+        clientIP := ctx.ClientIP()
 
-		log.WithFields(log.Fields{
-			"METHOD":    reqMethod,
-			"URI":       reqUri,
-			"STATUS":    statusCode,
-			"LATENCY":   latencyTime,
-			"CLIENT_IP": clientIP,
-		}).Info("HTTP REQUEST")
+        log.WithFields(log.Fields{
+            "METHOD":    reqMethod,
+            "URI":       reqUri,
+            "STATUS":    statusCode,
+            "LATENCY":   latencyTime,
+            "CLIENT_IP": clientIP,
+        }).Info("HTTP REQUEST")
 
-		ctx.Next()
-	}
+        ctx.Next()
+    }
 }
